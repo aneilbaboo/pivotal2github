@@ -29,7 +29,7 @@ CSV.open filename, :headers => true do |csv|
   csv.each do |r|
     body = {
       :title => r['Title'],
-      :body => r['Description'],
+      :body => r['Description'] || "",
     }
     labels = []
 
@@ -62,7 +62,7 @@ CSV.open filename, :headers => true do |csv|
     p issue
 
     r.each do |f|
-      if f[0] == 'Note'
+      if f[0] == 'Comment'
         next unless f[1]
         body = { :body => f[1] }
         GitHub.post "/repos/#{repository_path}/#{issue.parsed_response['number']}/comments", :body => JSON.generate(body)
