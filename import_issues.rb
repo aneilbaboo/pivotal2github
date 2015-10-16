@@ -29,8 +29,9 @@ CSV.open filename, :headers => true do |csv|
   csv.each do |r|
     body = {
       :title => r['Title'],
-      :body => r['Description'] || "",
+      :body => "#{r['Description'] || ""} \nSee: https://www.pivotaltracker.com/story/show/#{r['Id']}",
     }
+
     puts "-----------------------------------------------\nADDING ISSUE: #{body[:title]}\nDESCRIPTION: '#{body[:body]}'"
     labels = []
 
